@@ -1,0 +1,16 @@
+# schema: node_modules/wrangler/config-schema.json
+name = "oncall-durable-object"
+main = "src/new_entry.py"
+compatibility_date = "2025-07-19"
+compatibility_flags = ["python_workers"]
+
+
+[[durable_objects.bindings]]
+name = "ONCALL_ENV"
+class_name = "OnCallEnvironment"
+
+[[migrations]]
+tag = "v1"
+new_sqlite_classes = ["OnCallEnvironment"]
+
+

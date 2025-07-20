@@ -1,4 +1,5 @@
 from workers import DurableObject, Response, handler
+import random
 
 """
  * Welcome to Cloudflare Workers! This is your first Durable Objects application.
@@ -28,6 +29,16 @@ class MyDurableObject(DurableObject):
     """
     def __init__(self, ctx, env):
         super().__init__(ctx, env)
+        self._init_db()
+
+    def _init_db(self):
+        self.ctx.storage.sql.exec("""
+            CREATE TABLE IF NOT EXISTS items (
+                id INTEGER PRIMARY KEY,
+                name TEXT,
+                value TEXT
+            )
+        """)
 
     """
      * The Durable Object exposes an RPC method `say_hello` which will be invoked when when a Durable
@@ -38,6 +49,10 @@ class MyDurableObject(DurableObject):
     """
     async def say_hello(self, name):
         return f"Hello, {name}!"
+
+    async def give_random(self):
+        return f"So random.. {random.random()}"
+    
 
 
 """
@@ -61,7 +76,20 @@ async def on_fetch(request, env, ctx):
 
     # Call the `say_hello()` RPC method on the stub to invoke the method on
     # the remote Durable Object instance
-    greeting = await stub.say_hello("world")
+    #res = await stub.say_hello("world")
+    from urllib.parse import urlparse, parse_qs
+    url = urlparse(request.url)
+    params = parse_qs(url.query)
 
-    return Response(greeting)
+    fun = params.get('fun', [''])[0]
+    body = params.get('body', [''])[0]
+
+    if fun == "say_hello":
+        res = await stub.say_hello(body)
+    elif fun == "give_random":
+        res = await stub.give_random()
+    else:
+        res = "Dunno what u want me to do"
+
+    return Response(res)
 
