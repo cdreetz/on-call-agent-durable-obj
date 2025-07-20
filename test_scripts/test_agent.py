@@ -5,7 +5,7 @@ import os
 from openai import OpenAI
 
 # Configuration
-WORKER_BASE_URL = "http://localhost:61825"  # Update to match your wrangler port
+WORKER_BASE_URL = "http://localhost:64666"  # Update to match your wrangler port
 OPENAI_API_KEY = os.getenv("OPENAI_API_KEY")
 
 if not OPENAI_API_KEY:
@@ -35,11 +35,12 @@ def call_llm(messages):
     """Call OpenAI LLM with messages"""
     try:
         response = client.chat.completions.create(
-            model="gpt-4",
+            model="gpt-4o-mini",
             messages=messages,
             temperature=0.1,
             max_tokens=500
         )
+        print("full llm response: ", response)
         return response.choices[0].message.content
     except Exception as e:
         print(f"LLM call failed: {e}")
@@ -47,6 +48,7 @@ def call_llm(messages):
 
 def parse_tool_call(llm_response):
     """Extract tool call from LLM response"""
+    print("llm response try to parse tool call: ", llm_response)
     # Look for tool call patterns in the response
     lines = llm_response.lower().split('\n')
     

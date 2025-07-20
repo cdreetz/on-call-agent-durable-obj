@@ -70,6 +70,50 @@ Test completed. Tool calls used: 2/10
 LLM integration test completed!
 ```
 
+Or with the OpenAI compatible tools API:
+
+```bash
+uv run test_scripts/test_agent_openai.py
+```
+
+Should return something like:
+
+```
+Starting LLM OnCall Integration Test...
+Make sure your worker is running and OPENAI_API_KEY is set
+
+Testing LLM Integration with OnCall Environment
+============================================================
+Agent ID: llm-agent-1459023789
+
+1. Initializing OnCall environment...
+Environment initialized
+   Incident: High database response times detected. Users reporting slow page loads.
+   Tool calls available: 10
+
+2. Getting system prompt and tools...
+System prompt retrieved (2436 chars)
+Tools converted: 4 tools available
+
+3. Calling LLM for initial analysis...
+LLM Response: No content, tool call made
+
+4. Processing 1 tool call(s)...
+Executing tool 1: check_dependencies
+   Calls remaining: 9
+   Dependencies found: 2
+     - postgres-primary: degraded (5000ms)
+     - redis: healthy (10ms)
+
+5. Getting LLM analysis of tool results...
+LLM Analysis:
+   The status of the "postgres-primary" dependency is degraded with a high response time of 5000ms. This could be the cause of the incident. Let's check the logs for any related errors.
+
+Test completed. Tool calls used: 1
+
+LLM integration test completed!
+```
+
 ### Other Dependencies
 
 You'll need `uv`, which you can install by following

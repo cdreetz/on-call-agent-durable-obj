@@ -137,6 +137,7 @@ class OnCallEnvironment(DurableObject):
     def _get_tools_definitions(self):
         return [
             {
+                "type": "function",
                 "name": "check_dependencies",
                 "description": "Check status of service dependencies",
                 "parameters": {
@@ -150,6 +151,7 @@ class OnCallEnvironment(DurableObject):
                 }
             },
             {
+                "type": "function",
                 "name": "check_slack", 
                 "description": "Search recent Slack messages from team members",
                 "parameters": {
@@ -163,6 +165,7 @@ class OnCallEnvironment(DurableObject):
                 }
             },
             {
+                "type": "function",
                 "name": "check_deployments",
                 "description": "Check recent deployment status and history",
                 "parameters": {
@@ -176,6 +179,7 @@ class OnCallEnvironment(DurableObject):
                 }
             },
             {
+                "type": "function",
                 "name": "query_logs",
                 "description": "Execute SQL query on logs database. Table schema: logs(id INTEGER, timestamp TEXT, level TEXT, service TEXT, message TEXT, metadata TEXT)",
                 "parameters": {
