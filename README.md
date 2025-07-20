@@ -1,3 +1,7 @@
+# Agentic Durable Environments
+
+The new standard for agentic evaluation and environments
+
 ## About
 
 This is an example of a stateful and actionable agent environment with Cloudflare Durable Objects. The DO can be found at src/new_entry.py and contains things like the environment state, ways to initialize state in a way that attempts to resemble a real world state, an entry point defined by an on_fetch(), and a series of tools that allow for interacting with different components of the state and environment data.
