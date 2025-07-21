@@ -12,7 +12,7 @@ Consider in previous cases of evaluating LLMs, one might have thousands or tens 
 
 So we use Durable Objects and Workers to enable the unlimited scaling of DO. As long as we have enough GPUs, we can initiate 1000s of parallel agent/llm generations along with the 1000s of corresponding DOs for each agent to interact with.
 
-<img src="https://github.com/cdreetz/on-call-agent-durable-obj/blob/master/public/dur-obj.png" width="600">
+<img src="https://github.com/cdreetz/on-call-agent-durable-obj/blob/master/public/dur-obj.png" width="800">
 
 ## Local Usage
 
